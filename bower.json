@@ -1,0 +1,21 @@
+{
+  "name": "InstatranslateApp",
+  "version": "0.0.0",
+  "homepage": "https://github.com/urakozz/InstatranslateApp",
+  "authors": [
+    "Yury Kozyrev <urakozz@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ionic": "~1.0.0",
+    "ionicons": "~2.0.1",
+    "font-awesome": "~4.3.0"
+  }
+}

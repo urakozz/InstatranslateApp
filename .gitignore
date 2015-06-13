@@ -79,5 +79,6 @@ crashlytics-build.properties
 
 /platforms
 /Framework7
+/bower_components
 
 
