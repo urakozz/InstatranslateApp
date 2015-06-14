@@ -16,6 +16,7 @@
   "dependencies": {
     "ionic": "~1.0.0",
     "ionicons": "~2.0.1",
-    "font-awesome": "~4.3.0"
+    "font-awesome": "~4.3.0",
+    "framework7": "material"
   }
 }
