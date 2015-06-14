@@ -10,10 +10,12 @@ var autoprefixer = require('gulp-autoprefixer');
 
 var assets= './bower_components/';
 var paths = {
-    'jquery': assets + 'jquery/',
+    'requirsjs': assets + 'requirejs/',
+    'lodash': assets + 'lodash/',
     'ionic': assets + 'ionic/',
     'ionicons': assets + 'ionicons/',
     'framework7': assets + 'framework7/src/less/',
+    'framework7js': assets + 'framework7/dist/js/',
     'fontAwesome': assets + 'font-awesome/'
 };
 var buildConfig ={
@@ -21,11 +23,10 @@ var buildConfig ={
 };
 
 gulp.task('sass', function(done) {
-    gulp.src([paths.ionic+'scss/ionic.scss', paths.fontAwesome+'scss/font-awesome.scss'])
+    gulp.src([paths.ionicons+'scss/ionicons.scss', paths.fontAwesome+'scss/font-awesome.scss'])
         .pipe(sass({errLogToConsole: true}))
-        .pipe(autoprefixer('last 4 version'))
         //.pipe(sourcemaps.init())
-        //.pipe(concat('compiled.css'))
+        .pipe(concat('fonts.css'))
         //.pipe(sourcemaps.write())
         .pipe(gulp.dest(buildConfig.dist + '/css'))
         .on('end', done);
@@ -41,10 +42,20 @@ gulp.task('less', function(done) {
 });
 
 gulp.task('fonts', function(done) {
-    gulp.src(paths.fontAwesome+'fonts/*')
-        .pipe(gulp.dest(buildConfig.dist+'/fonts'));
-    gulp.src(paths.ionicons+'fonts/*')
-        .pipe(gulp.dest(buildConfig.dist+'/fonts'));
+    gulp.src([paths.fontAwesome+'fonts/*', paths.ionicons+'fonts/*'])
+        .pipe(gulp.dest(buildConfig.dist+'/fonts'))
+        .on('end', done);;
 });
 
-gulp.task('default', ['sass', 'less', 'fonts']);
+gulp.task('js', function(done) {
+    var js = [
+        paths.requirsjs + "*.js",
+        paths.lodash + "lodash.js",
+        paths.framework7js + "framework7.js"
+    ];
+    gulp.src(js)
+        .pipe(gulp.dest(buildConfig.dist+'/js'))
+        .on('end', done);;
+});
+
+gulp.task('default', ['sass', 'less', 'fonts', 'js']);

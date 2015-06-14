@@ -17,6 +17,8 @@
     "ionic": "~1.0.0",
     "ionicons": "~2.0.1",
     "font-awesome": "~4.3.0",
-    "framework7": "material"
+    "framework7": "material",
+    "requirejs": "~2.1.18",
+    "lodash": "~3.9.3"
   }
 }
