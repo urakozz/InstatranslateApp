@@ -19,6 +19,8 @@
     "font-awesome": "~4.3.0",
     "framework7": "material",
     "requirejs": "~2.1.18",
-    "lodash": "~3.9.3"
+    "lodash": "~3.9.3",
+    "requirejs-text": "~2.0.14",
+    "requirejs-i18n": "~2.0.5"
   }
 }

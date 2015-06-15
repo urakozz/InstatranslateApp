@@ -1,17 +1,36 @@
 /**
  * Created by yury on 14/06/15.
  */
-define(function() {
-    var $ = Dom7;
+define(['GS', 'Framework7'], function(GS, f7) {
+    var $$ = Dom7;
 
     /**
      * Init router, that handle page events
      */
     function init() {
-        $(document).on('pageBeforeInit', function (e) {
+        $$(document).on('pageBeforeInit', function (e) {
             var page = e.detail.page;
+            console.log("pageBeforeInit", arguments);
             load(page.name, page.query);
         });
+
+
+        $$(document).on('pageAfterAnimation', function (e) {
+            console.log("pageAfterAnimation", arguments)
+        });
+
+        console.log(GS.getCurrentUser());
+
+        if(!GS.isLogin()){
+            console.log("not login");
+            //mainView.router.loadPage('cards.html');
+        }else{
+            console.log("login");
+            //mainView.router.reloadPage('index.html');
+        }
+
+        //remove 'hidden-navbar' class
+        $$('div.navbar').removeClass('navbar-hidden');
     }
 
     /**

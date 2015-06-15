@@ -1,16 +1,15 @@
-//require.config({
-//        paths: {
-//                handlebars: "lib/handlebars",
-//                text: "lib/text",
-//                hbs: "lib/hbs"
-//        },
-//        shim: {
-//                handlebars: {
-//                        exports: "Handlebars"
-//                }
-//        }
-//});
-define('app', ['router'], function(Router) {
+var lang = localStorage.getItem('lang') || 'en-us';
+require.config({
+    locale: lang,
+        paths: {
+            GS:'service/GlobalService',
+            Framework7:'assets/framework7'
+        },
+        shim: {
+                'Framework7':{exports: 'Framework7'}
+        }
+});
+define('app', ['router', 'Framework7'], function(Router, Framework7) {
         Router.init();
         var f7 = new Framework7({
                 modalTitle: 'Contacts7',

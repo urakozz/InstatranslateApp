@@ -11,6 +11,8 @@ var autoprefixer = require('gulp-autoprefixer');
 var assets= './bower_components/';
 var paths = {
     'requirsjs': assets + 'requirejs/',
+    'requirsjs_text': assets + 'requirejs-text/',
+    'requirsjs_i18n': assets + 'requirejs-i18n/',
     'lodash': assets + 'lodash/',
     'ionic': assets + 'ionic/',
     'ionicons': assets + 'ionicons/',
@@ -44,17 +46,19 @@ gulp.task('less', function(done) {
 gulp.task('fonts', function(done) {
     gulp.src([paths.fontAwesome+'fonts/*', paths.ionicons+'fonts/*'])
         .pipe(gulp.dest(buildConfig.dist+'/fonts'))
-        .on('end', done);;
+        .on('end', done);
 });
 
 gulp.task('js', function(done) {
     var js = [
         paths.requirsjs + "*.js",
+        paths.requirsjs_text + "*.js",
+        paths.requirsjs_i18n + "*.js",
         paths.lodash + "lodash.js",
         paths.framework7js + "framework7.js"
     ];
     gulp.src(js)
-        .pipe(gulp.dest(buildConfig.dist+'/js'))
+        .pipe(gulp.dest(buildConfig.dist+'/js/assets'))
         .on('end', done);;
 });
 
