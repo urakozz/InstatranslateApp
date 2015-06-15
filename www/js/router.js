@@ -19,15 +19,15 @@ define(['GS', 'Framework7'], function(GS, f7) {
             console.log("pageAfterAnimation", arguments)
         });
 
-        console.log(GS.getCurrentUser());
+        console.log("user", GS.getCurrentUser());
 
-        if(!GS.isLogin()){
-            console.log("not login");
-            //mainView.router.loadPage('cards.html');
-        }else{
-            console.log("login");
-            //mainView.router.reloadPage('index.html');
-        }
+        //if(!GS.isLogin()){
+        //    console.log("not login");
+        //    mainView.router.loadPage('cards.html');
+        //}else{
+        //    console.log("login");
+        //    mainView.router.reloadPage('index.html');
+        //}
 
         //remove 'hidden-navbar' class
         $$('div.navbar').removeClass('navbar-hidden');

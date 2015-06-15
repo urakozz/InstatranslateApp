@@ -10,7 +10,7 @@ require.config({
                 'Framework7':{exports: 'Framework7'}
         }
 });
-define('app', ['router', 'Framework7', 'utils/appFunc'], function(Router, Framework7, appFunc) {
+define('app', ['router', 'Framework7', 'utils/appFunc', 'GS'], function(Router, Framework7, appFunc, GS) {
         //Router.init();
         //var f7 = new Framework7({
         //        modalTitle: 'Contacts7',
@@ -51,13 +51,23 @@ define('app', ['router', 'Framework7', 'utils/appFunc'], function(Router, Framew
             window.$$ = Dom7;
 
             window.iApp = new Framework7({
+                modalTitle: 'Instatranslate',
                 popupCloseByOutside:false,
                 animateNavBackIcon: true,
                 //modalTitle: i18n.global.modal_title,
                 //modalButtonOk: i18n.global.modal_button_ok,
                 //modalButtonCancel: i18n.global.cancel,
-                //preprocess:router.preprocess
-                pushState: false
+                //preprocess:function(){
+                //    console.log("preprocess", arguments)
+                //},
+                preroute:function (view, options) {
+                    console.log("preroute", arguments);
+                    //if (!GS.isLogin()) {
+                    //    view.router.loadPage('form.html'); //load another page with auth form
+                    //    return false; //required to prevent default router action
+                    //}
+                },
+                pushState: appFunc.isPhonegap()
             });
 
             window.mainView = iApp.addView('#iApplicationMainView', {
