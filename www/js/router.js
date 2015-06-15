@@ -2,7 +2,7 @@
  * Created by yury on 14/06/15.
  */
 define(['GS', 'Framework7'], function(GS, f7) {
-    var $$ = Dom7;
+    //var $$ = Dom7;
 
     /**
      * Init router, that handle page events
