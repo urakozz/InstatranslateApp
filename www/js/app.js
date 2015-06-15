@@ -67,7 +67,7 @@ define('app', ['router', 'Framework7', 'utils/appFunc', 'GS'], function(Router, 
                     //    return false; //required to prevent default router action
                     //}
                 },
-                pushState: appFunc.isPhonegap()
+                pushState: !appFunc.isPhonegap()
             });
 
             window.mainView = iApp.addView('#iApplicationMainView', {
