@@ -30,7 +30,7 @@ define(['GS', 'Framework7'], function(GS, f7) {
         //}
 
         //remove 'hidden-navbar' class
-        $$('div.navbar').removeClass('navbar-hidden');
+        //$$('div.navbar').removeClass('navbar-hidden');
     }
 
     /**
