@@ -6,7 +6,8 @@ var sass = require('gulp-sass');
 var less = require('gulp-less');
 var concat = require('gulp-concat');
 var autoprefixer = require('gulp-autoprefixer');
-//var sourcemaps = require('gulp-sourcemaps');
+var sourcemaps = require('gulp-sourcemaps');
+var uglify = require('gulp-uglify');
 
 var assets= './bower_components/';
 var paths = {
@@ -57,9 +58,11 @@ gulp.task('js', function(done) {
         paths.lodash + "lodash.js",
         paths.framework7js + "framework7.js"
     ];
+    js = js.concat(js.map(function(item){ return item + ".map"}));
     gulp.src(js)
         .pipe(gulp.dest(buildConfig.dist+'/js/assets'))
-        .on('end', done);;
+        .on('end', done);
+
 });
 
 gulp.task('default', ['sass', 'less', 'fonts', 'js']);
