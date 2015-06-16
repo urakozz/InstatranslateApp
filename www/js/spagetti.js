@@ -4,8 +4,13 @@
 var welcomescreen_slides = [
     {
         id: 'slide0',
-        picture: '<i class="icon ion-social-instagram-outline big-icon"></i>',
-        text: 'Welcome to the Instatranslate<br><a href="#" data-popup=".popup-login" class="button open-popup">Popup  </a>'
+        picture: '<i class="icon ion-social-instagram-outline big-icon"></i>'+
+        '<div class="content-block"><div class="row"><div class="col-100"> ' +
+        '<a href="#"class="button button-big open-popup" data-popup=".popup-login">' +
+        'Go to the instagram and log in ' +
+        '</a> </div> </div></div>',
+        text:"Some text"
+
     }
 ];
 window.iApp = new Framework7();
@@ -15,7 +20,7 @@ window.mainView = iApp.addView('#iApplicationMainView', {
 });
 
 var options = {
-    'bgcolor': '#0da6ec',
+    'bgcolor': '#74baee',
     'fontcolor': '#fff',
     closeButton: false,
     pagination: false,
