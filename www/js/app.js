@@ -57,9 +57,10 @@ define('app', ['router', 'Framework7', 'utils/appFunc', 'GS'], function(Router, 
                 //modalTitle: i18n.global.modal_title,
                 //modalButtonOk: i18n.global.modal_button_ok,
                 //modalButtonCancel: i18n.global.cancel,
-                //preprocess:function(){
-                //    console.log("preprocess", arguments)
-                //},
+                preprocess:function(content, url, next){
+                    console.log("preprocess", arguments);
+                    return next(content);
+                },
                 preroute:function (view, options) {
                     console.log("preroute", arguments);
                     //if (!GS.isLogin()) {
