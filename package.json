@@ -10,13 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "cordova": "^5.1.1",
+    "phonegap": "~5.0.0-0.28.1"
+  },
+  "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-concat": "^2.5.2",
     "gulp-sass": "^2.0.1",
     "gulp-uglify": "^1.2.0",
-    "phonegap": "~5.0.0-0.28.1"
-  },
-  "devDependencies": {
     "gulp-autoprefixer": "^2.3.1",
     "gulp-less": "^3.0.3",
     "gulp-sourcemaps": "^1.5.2"
