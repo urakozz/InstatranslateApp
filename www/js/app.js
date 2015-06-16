@@ -58,11 +58,11 @@ define('app', ['router', 'Framework7', 'utils/appFunc', 'GS'], function(Router, 
                 //modalButtonOk: i18n.global.modal_button_ok,
                 //modalButtonCancel: i18n.global.cancel,
                 preprocess:function(content, url, next){
-                    console.log("preprocess", arguments);
+                    console.log("preprocess", url);
                     return next(content);
                 },
                 preroute:function (view, options) {
-                    console.log("preroute", arguments);
+                    console.log("preroute", options.url, options);
                     //if (!GS.isLogin()) {
                     //    view.router.loadPage('form.html'); //load another page with auth form
                     //    return false; //required to prevent default router action

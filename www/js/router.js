@@ -21,13 +21,13 @@ define(['GS', 'Framework7'], function(GS, f7) {
 
         console.log("user", GS.getCurrentUser());
 
-        //if(!GS.isLogin()){
-        //    console.log("not login");
-        //    mainView.router.loadPage('cards.html');
-        //}else{
-        //    console.log("login");
-        //    mainView.router.reloadPage('index.html');
-        //}
+        if(!GS.isLogin()){
+            console.log("router: not login");
+            //mainView.router.loadPage('page/login.html');
+        }else{
+            console.log("router:login");
+            //mainView.router.reloadPage('index.html');
+        }
 
         //remove 'hidden-navbar' class
         //$$('div.navbar').removeClass('navbar-hidden');
@@ -39,7 +39,7 @@ define(['GS', 'Framework7'], function(GS, f7) {
      * @param query
      */
     function load(controllerName, query) {
-        require([controllerName + '/'+ controllerName + 'Controller'], function(controller) {
+        require(["controllers/" + controllerName + '/'+ controllerName + 'Controller'], function(controller) {
             controller.init(query);
         });
     }

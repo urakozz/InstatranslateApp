@@ -55,7 +55,7 @@ body {
     font-size: 25px;
     font-weight: 100;
 }
-.list-block .item-link .item-inner{
+.panel .list-block .item-link .item-inner{
     background-image: none;
 }
 body.with-panel-left-reveal .statusbar-overlay {
