@@ -6,9 +6,9 @@ var welcomescreen_slides = [
         id: 'slide0',
         picture: '<i class="icon ion-social-instagram-outline big-icon"></i>'+
         '<div class="content-block"><div class="row"><div class="col-100"> ' +
-        '<a href="#"class="button button-big open-popup" data-popup=".popup-login">' +
+        '<a href="#"class="login-popup-button open-popup" data-popup=".popup-login">' +
         'Go to the instagram and log in ' +
-        '</a> </div> </div></div>',
+        '</a> </div></div>',
         text:"Some text"
 
     }

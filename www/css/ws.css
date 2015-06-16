@@ -63,3 +63,7 @@ html.with-statusbar-overlay .welcomescreen-container{
 .big-icon {
     font-size: 10rem
 }
+.login-popup-button {
+    color: #fff;
+    font-weight: bold;
+}
