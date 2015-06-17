@@ -14,6 +14,7 @@ var welcomescreen_slides = [
 
     }
 ];
+
 window.iApp = new Framework7();
 window.$$ = Dom7;
 window.mainView = iApp.addView('#iApplicationMainView', {
@@ -21,6 +22,15 @@ window.mainView = iApp.addView('#iApplicationMainView', {
 });
 $$(".init-overlay-container").addClass("init-overlay-container__invisible");
 
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+    window.open = cordova.InAppBrowser.open;
+    $$(".instagram-oauth").on("click", function(e){
+        e.preventDefault();
+        cordova.InAppBrowser.open('https://instagram.com', '_blank', 'location=yes');
+
+    });
+}
 
 var options = {
     'bgcolor': '#74baee',
