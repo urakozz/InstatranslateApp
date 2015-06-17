@@ -5,11 +5,12 @@ var welcomescreen_slides = [
     {
         id: 'slide0',
         picture: '<i class="icon ion-social-instagram-outline big-icon"></i>'+
-        '<div class="content-block"><div class="row"><div class="col-100"> ' +
-        '<a href="#"class="login-popup-button open-popup" data-popup=".popup-login">' +
-        'Go to the instagram and log in ' +
-        '</a> </div></div>',
-        text:"Some text"
+        '<div class="content-block">' +
+        '<a href="#"class="login-popup-button open-popup button button-big" data-popup=".popup-login">' +
+        'Log in to the Instagram' +
+        '</a> ' +
+        '</div>',
+        text:""
 
     }
 ];
@@ -18,6 +19,8 @@ window.$$ = Dom7;
 window.mainView = iApp.addView('#iApplicationMainView', {
     dynamicNavbar: true
 });
+$$(".init-overlay-container").addClass("init-overlay-container__invisible");
+
 
 var options = {
     'bgcolor': '#74baee',

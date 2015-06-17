@@ -1,6 +1,23 @@
 body {
     background: #ffffff;
 }
+.init-overlay-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #74baee;
+    z-index: 10401;
+    opacity: 1;
+    visibility:visible;
+    transition: opacity .25s linear, visibility 0.25s linear;
+    transition-delay:.1s;
+}
+.init-overlay-container__invisible {
+    visibility:hidden;
+    opacity:0;
+}
 .navbar {
     border-bottom: none;
     background: #74baee;

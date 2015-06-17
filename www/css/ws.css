@@ -44,6 +44,12 @@
 .welcomescreen-content {
     padding: 15px;
 }
+.welcomescreen-container .welcomescreen-picture a.login-popup-button{
+    width: 40%;
+    min-width: 15rem;
+    margin:0 auto;
+    border-color: #fff
+}
 
 .welcomescreen-container .swiper-pagination-bullet{
     background: rgba(255, 255, 255, 0.9) !important;
