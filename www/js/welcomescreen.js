@@ -8,6 +8,7 @@
  * @author www.timo-ernst.net
  * @license MIT
  */
+define(['Framework7'], function(Framework7) {
 Framework7.prototype.plugins.welcomescreen = function (app, globalPluginParams) {
     'use strict';
 
@@ -225,4 +226,4 @@ Framework7.prototype.plugins.welcomescreen = function (app, globalPluginParams) 
         return new Welcomescreen(slides, options);
     };
 
-};
+};});

@@ -8,6 +8,7 @@ var concat = require('gulp-concat');
 var autoprefixer = require('gulp-autoprefixer');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
+var connect = require('gulp-connect');
 
 var assets= './bower_components/';
 var paths = {
@@ -15,6 +16,7 @@ var paths = {
     'requirsjs_text': assets + 'requirejs-text/',
     'requirsjs_i18n': assets + 'requirejs-i18n/',
     'lodash': assets + 'lodash/',
+    'oauth': assets + 'oauth-js/dist/',
     'ionic': assets + 'ionic/',
     'ionicons': assets + 'ionicons/',
     'framework7': assets + 'framework7/src/less/',
@@ -56,6 +58,7 @@ gulp.task('js', function(done) {
         paths.requirsjs_text + "*.js",
         paths.requirsjs_i18n + "*.js",
         paths.lodash + "lodash.js",
+        paths.oauth + "oauth.js",
         paths.framework7js + "framework7.js"
     ];
     js = js.concat(js.map(function(item){ return item + ".map"}));
@@ -66,3 +69,11 @@ gulp.task('js', function(done) {
 });
 
 gulp.task('default', ['sass', 'less', 'fonts', 'js']);
+
+gulp.task('server', function () {
+    return connect.server({
+        root: [ "./www" ],
+        livereload: true,
+        port:'3000'
+    });
+});

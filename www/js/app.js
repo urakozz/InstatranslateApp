@@ -4,59 +4,35 @@ require.config({
     locale: lang,
         paths: {
             GS:'service/GlobalService',
-            Framework7:'assets/framework7'
+            Framework7:'assets/framework7',
+            OAuth:'assets/oauth'
         },
         shim: {
                 'Framework7':{exports: 'Framework7'}
         }
 });
-define('app', ['router', 'Framework7', 'utils/appFunc', 'GS'], function(Router, Framework7, appFunc, GS) {
-        //Router.init();
-        //var f7 = new Framework7({
-        //        modalTitle: 'Contacts7',
-        //        swipePanel: 'left',
-        //        animateNavBackIcon: true
-        //});
-        //var mainView = f7.addView('.view-main', {
-        //        dynamicNavbar: true
-        //});
-        //return {
-        //        f7: f7,
-        //        mainView: mainView,
-        //        router: Router
-        //};
-    //console.log(Router);
-    var app = {
-        initialize: function() {
-            this.bindEvents();
-        },
-        bindEvents: function() {
-            if(appFunc.isPhonegap()) {
-                document.addEventListener('deviceready', this.onDeviceReady, false);
-            }else{
-                window.onload = this.onDeviceReady();
-            }
-        },
-        onDeviceReady: function() {
-            app.receivedEvent('deviceready');
-        },
-        receivedEvent: function(event) {
-            switch (event) {
-                case 'deviceready':
-                    app.initMainView();
-                    break;
-            }
-        },
-        initMainView:function(){
-            window.$$ = Dom7;
+define('app', ['Framework7','welcomescreen', 'utils/appFunc', 'GS'], function(Framework7, ws, appFunc, GS) {
 
+    var welcomescreen_slides = [
+        {
+            id: 'slide0',
+            picture: '<i class="icon ion-social-instagram-outline big-icon"></i>'+
+            '<div class="content-block">' +
+            '<a href="#"class="login-popup-button open-popup button button-big" data-popup=".popup-login">' +
+            'Log in to the Instagram' +
+            '</a> ' +
+            '</div>',
+            text:""
+
+        }
+    ];
+
+    var bootstrap = {
+        initGlobals: function(){
             window.iApp = new Framework7({
                 modalTitle: 'Instatranslate',
                 popupCloseByOutside:false,
                 animateNavBackIcon: true,
-                //modalTitle: i18n.global.modal_title,
-                //modalButtonOk: i18n.global.modal_button_ok,
-                //modalButtonCancel: i18n.global.cancel,
                 preprocess:function(content, url, next){
                     console.log("preprocess", url);
                     return next(content);
@@ -70,23 +46,58 @@ define('app', ['router', 'Framework7', 'utils/appFunc', 'GS'], function(Router, 
                 },
                 pushState: !appFunc.isPhonegap()
             });
-
+            window.$$ = Dom7;
             window.mainView = iApp.addView('#iApplicationMainView', {
                 dynamicNavbar: true
             });
+        },
+        initWelcomeScreen: function(){
+            var options = {
+                'bgcolor': '#74baee',
+                'fontcolor': '#fff',
+                closeButton: false,
+                pagination: false,
+                'open': !localStorage.getItem('sid')
+            };
 
-            //window.contatcView = iApp.addView('#contatcView', {
-            //    dynamicNavbar: true
-            //});
-            //
-            //window.settingView = iApp.addView('#settingView', {
-            //    dynamicNavbar: true
-            //});
-
-            Router.init();
+            var welcomescreen = iApp.welcomescreen(welcomescreen_slides, options);
+            $$('.popup-login').on('opened', function () {
+                welcomescreen.close();
+            });
+        },
+        enviromentalOnload: function(func){
+            if(appFunc.isPhonegap()) {
+                document.addEventListener('deviceready', func, false);
+            }else{
+                window.onload = func;
+                require(["assets/oauth"]);
+            }
         }
     };
+    bootstrap.initGlobals();
+    bootstrap.initWelcomeScreen();
+    bootstrap.enviromentalOnload(onDeviceReady);
 
-    app.initialize();
+
+
+
+    function onDeviceReady() {
+
+        $$(".init-overlay-container").addClass("init-overlay-container__invisible");
+
+        $$(".instagram-oauth").on("click", function(e){
+            e.preventDefault();
+
+            //$$('#login p').html(authUrl);
+            OAuth.initialize('vAGr3JbAXYT3Jni6MoD9OWjjK0M');
+            OAuth.popup('instagram').done(function(result) {
+                console.log(result);
+                $$('#login p').text(result.access_token);
+            })
+        });
+    }
+
+
+
 });
 })();
