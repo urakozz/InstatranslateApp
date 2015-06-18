@@ -1,6 +1,7 @@
 /**
  * Created by yury on 14/06/15.
  */
+var exec = require('child_process').exec;
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var less = require('gulp-less');
@@ -76,4 +77,11 @@ gulp.task('server', function () {
         livereload: true,
         port:'3000'
     });
+});
+
+gulp.task('ios', function(){
+    exec("./node_modules/.bin/phonegap run ios")
+});
+gulp.task('android', function(){
+    exec("./node_modules/.bin/phonegap run android")
 });
