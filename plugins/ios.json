@@ -28,11 +28,11 @@
         }
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
-        },
         "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
+            "PACKAGE_NAME": "com.urakozz.instatranslate"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.urakozz.instatranslate"
         }
     },
     "dependent_plugins": {}
