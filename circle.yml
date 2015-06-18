@@ -4,5 +4,8 @@ machine:
   environment:
     XCODE_PROJECT: platforms/ios
 dependencies:
-  pre:
+  override:
    - bower install
+   - npm install
+   - gulp
+   - ./node_modules/.bin/phonegap run ios
