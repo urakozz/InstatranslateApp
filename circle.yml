@@ -2,6 +2,7 @@ machine:
   xcode:
     version: "6.3.1"
   environment:
+    PATH: ${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin
     XCODE_PROJECT: platforms/ios
 dependencies:
   override:
