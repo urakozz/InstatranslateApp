@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "cordova": "^5.1.1",
-    "phonegap": "~5.0.0-0.28.1"
+    "phonegap": "~5.0.0-0.28.1",
+    "forever":"*",
+    "forever-monitor":"*"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
