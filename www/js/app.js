@@ -93,6 +93,8 @@ define('app', ['Framework7','welcomescreen', 'utils/appFunc', 'GS'], function(Fr
             OAuth.popup('instagram').done(function(result) {
                 console.log(result);
                 $$('#login p').text(result.access_token);
+            }).fail(function(res){
+                console.log(res);
             })
         });
     }
