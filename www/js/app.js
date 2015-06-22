@@ -72,16 +72,44 @@ define('app', ['Framework7','welcomescreen', 'utils/appFunc', 'GS'], function(Fr
                 window.onload = func;
                 require(["assets/oauth"]);
             }
+        },
+        initPullToRefresh: function(){
+            var ptrContent = $$('.pull-to-refresh-content');
+
+            ptrContent.on('refresh', function (e) {
+                // Emulate 2s loading
+                setTimeout(function () {
+                    // List item html
+                    var itemHTML = '<div class="card ks-facebook-card">'+
+                        '<div class="card-header no-border">'+
+                        '<div class="ks-facebook-avatar"><img src="http://lorempixel.com/68/68/people/1/" width="34" height="34"/></div>'+
+                        '<div class="ks-facebook-name">John Doe</div>'+
+                        '<div class="ks-facebook-date">Monday at 3:47 PM</div>'+
+                        '</div>'+
+                        '<div class="card-content"> <img src="http://lorempixel.com/1000/700/nature/8/" width="100%"/></div>'+
+                        '<div class="card-footer no-border"><a href="#" class="link">Like</a><a href="#" class="link">Comment</a><a href="#" class="link">Share</a></div>'+
+                        '</div>';
+                    // Prepend new list element
+                    ptrContent.find('.i-media-container').prepend(itemHTML);
+                    // When loading done, we need to reset it
+                    iApp.pullToRefreshDone();
+                }, 1000);
+            });
         }
     };
     bootstrap.initGlobals();
     bootstrap.initWelcomeScreen();
+    bootstrap.initPullToRefresh();
     bootstrap.enviromentalOnload(onDeviceReady);
 
 
     function onDeviceReady() {
 
         $$(".init-overlay-container").addClass("init-overlay-container__invisible");
+
+        if(GS.isLogin()){
+            iApp.pullToRefreshTrigger();
+        }
 
         $$(".instagram-oauth").on("click", function(e){
             e.preventDefault();
@@ -93,6 +121,7 @@ define('app', ['Framework7','welcomescreen', 'utils/appFunc', 'GS'], function(Fr
                 GS.setToken(result.access_token);
                 GS.setCurrentUser(result.user);
                 iApp.closeModal('.popup-login');
+                iApp.pullToRefreshTrigger();
             }).fail(function(result){
                 console.log(result);
                 $$('#login p').text(result.message);
