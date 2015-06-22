@@ -28,10 +28,17 @@ define([], function() {
             return m.sid || localStorage.getItem('sid');
         },
 
-        setCurrentUser: function(sid,user){
+        getToken: function(){
+            return localStorage.getItem('token')
+        },
+
+        setToken: function(token){
+            return localStorage.setItem('token', token)
+        },
+
+        setCurrentUser: function(user){
             CONFIG.currentUser = user;
             localStorage.setItem('user',JSON.stringify(user));
-            localStorage.setItem('sid',sid);
         },
 
         removeCurrentUser: function(){
@@ -41,7 +48,7 @@ define([], function() {
         },
 
         isLogin: function(){
-            return (CONFIG.currentUser && localStorage.getItem('sid'));
+            return localStorage.getItem('token');
         }
 
     };

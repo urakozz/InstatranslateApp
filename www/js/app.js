@@ -57,7 +57,7 @@ define('app', ['Framework7','welcomescreen', 'utils/appFunc', 'GS'], function(Fr
                 'fontcolor': '#fff',
                 closeButton: false,
                 pagination: false,
-                'open': !localStorage.getItem('sid')
+                'open': !GS.isLogin()
             };
 
             var welcomescreen = iApp.welcomescreen(welcomescreen_slides, options);
@@ -86,13 +86,16 @@ define('app', ['Framework7','welcomescreen', 'utils/appFunc', 'GS'], function(Fr
         $$(".instagram-oauth").on("click", function(e){
             e.preventDefault();
 
-            //$$('#login p').html(authUrl);
             OAuth.initialize('vAGr3JbAXYT3Jni6MoD9OWjjK0M');
             OAuth.popup('instagram').done(function(result) {
                 console.log(result);
                 $$('#login p').text(result.access_token);
-            }).fail(function(res){
-                console.log(res);
+                GS.setToken(result.access_token);
+                GS.setCurrentUser(result.user);
+                iApp.closeModal('.popup-login');
+            }).fail(function(result){
+                console.log(result);
+                $$('#login p').text(result.message);
             })
         });
     }
