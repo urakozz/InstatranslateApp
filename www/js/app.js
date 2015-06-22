@@ -79,8 +79,6 @@ define('app', ['Framework7','welcomescreen', 'utils/appFunc', 'GS'], function(Fr
     bootstrap.enviromentalOnload(onDeviceReady);
 
 
-
-
     function onDeviceReady() {
 
         $$(".init-overlay-container").addClass("init-overlay-container__invisible");
