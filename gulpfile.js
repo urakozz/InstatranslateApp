@@ -10,6 +10,7 @@ var autoprefixer = require('gulp-autoprefixer');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var connect = require('gulp-connect');
+var build = require('gulp-build');
 
 var assets= './bower_components/';
 var paths = {
@@ -72,6 +73,13 @@ gulp.task('js', function(done) {
         .pipe(gulp.dest(buildConfig.dist+'/js/assets'))
         .on('end', done);
 
+});
+
+gulp.task('html', function(done){
+    gulp.src("www/index.html")
+        .pipe(build({ "git_hash": '123456' }))
+        .pipe(gulp.dest('www'))
+        .on('end', done);
 });
 
 gulp.task('default', ['sass', 'less', 'fonts', 'js']);

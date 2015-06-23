@@ -81,6 +81,15 @@ body {
 body.with-panel-left-reveal .statusbar-overlay {
     background: #7a9dbb;
 }
+.i-translatable-container{
+    cursor: default;
+}
+.i-translatable-item {
+    cursor: pointer;
+}
+.i-translatable-item__translated {
+    cursor: default;
+}
 /*.popup-overlay {*/
     /*background: rgba(128, 128, 128, 0.2);*/
 /*}*/

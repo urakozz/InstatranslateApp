@@ -13,7 +13,8 @@ require.config({
             Framework7:{exports: 'Framework7'}
         }
 });
-define('app', ['Framework7','welcomescreen', 'utils/appFunc', 'GS', "service/TinyClient"], function(Framework7, ws, appFunc, GS, iClient) {
+define('app', ['Framework7','welcomescreen', 'utils/appFunc', 'GS', "service/TinyClient", "service/TinyTranslator"],
+    function(Framework7, ws, appFunc, GS, iClient, iTranslator) {
 
     var welcomescreen_slides = [
         {
@@ -121,12 +122,33 @@ define('app', ['Framework7','welcomescreen', 'utils/appFunc', 'GS', "service/Tin
                 //feed.run();
                 //iApp.pullToRefreshDone();
             });
+        },
+        registerTranslator:function(){
+            $$(document).on('click', ".i-translatable-item", function (e) {
+                var element = $$(this);
+                if(element.hasClass("i-translatable-item__translated")){
+                    return;
+                }
+                element.addClass("i-translatable-item__translating");
+                console.log(element.text());
+                new iTranslator().call(element.text(), "ru").then(function(request){
+                    var text = request.text[0];
+                    element.addClass("i-translatable-item__translated");
+                    if(text !== element.text()){
+                        element.parent().append("<p>"+request.text[0]+"</p>");
+                    }
+                }).always(function(){
+                    element.removeClass("i-translatable-item__translating");
+                })
+            });
+
         }
     };
     bootstrap.initGlobals();
     bootstrap.initWelcomeScreen();
     bootstrap.initPullToRefresh();
     bootstrap.enviromentalOnload(onDeviceReady);
+    bootstrap.registerTranslator();
 
 
     function onDeviceReady() {

@@ -5,8 +5,10 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Instatranslate">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--<meta name="apple-mobile-web-app-status-bar-style" content="black">-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Instatranslate</title>
     <!-- Path to Framework7 Library CSS-->
     <link rel="stylesheet" href="css/framework7.css">
@@ -108,9 +110,9 @@
             </div>
         </div>
         <!-- Bottom Toolbar-->
-        <div class="toolbar">
-            <div class="toolbar-inner"><a href="#" class="link">Link 1</a><a href="#" class="link">Link 2</a></div>
-        </div>
+        <!--<div class="toolbar">-->
+            <!--<div class="toolbar-inner"><a href="#" class="link">Link 1</a><a href="#" class="link">Link 2</a></div>-->
+        <!--</div>-->
     </div>
 </div>
 <div class="popup popup-login">
@@ -155,9 +157,11 @@
         <div class="card-content">
             <div class="card-content-inner">
                 <img src="{{images.standard_resolution.url}}" width="100%"/>
-                {{#if caption}}
-                <p>{{caption.text}}</p>
-                {{/if}}
+                <div class="i-translatable-container">
+                    {{#if caption}}
+                    <p class="i-translatable-item">{{caption.text}}</p>
+                    {{/if}}
+                </div>
             <p class="color-gray">Likes: {{likes.count}} &nbsp;&nbsp; Comments: {{comments.count}}</p>
             </div>
         </div>
