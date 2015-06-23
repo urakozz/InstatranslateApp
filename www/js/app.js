@@ -81,6 +81,10 @@ define('app', ['Framework7','welcomescreen', 'utils/appFunc', 'GS', "service/iCl
             ptrContent.on('refresh', function (e) {
                 new iClient({accessToken:GS.getToken()}).call({url:"/users/self/feed"}).then(function(result){
                     console.log("instacall", result);
+                    var template = $$('#feedTemplate').html();
+                    var compiledTemplate = Template7.compile(template);
+                    var html = compiledTemplate(result);
+                    ptrContent.find('.i-media-container').html(html);
                 }).fail(function(error){
                     console.error(error)
                 }).always(function(){
