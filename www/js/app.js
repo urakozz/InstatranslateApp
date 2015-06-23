@@ -5,13 +5,15 @@ require.config({
         paths: {
             GS:'service/GlobalService',
             Framework7:'assets/framework7',
+            lodash: 'assets/lodash',
+            reqwest: 'assets/reqwest',
             OAuth:'assets/oauth'
         },
         shim: {
-                'Framework7':{exports: 'Framework7'}
+            Framework7:{exports: 'Framework7'}
         }
 });
-define('app', ['Framework7','welcomescreen', 'utils/appFunc', 'GS'], function(Framework7, ws, appFunc, GS) {
+define('app', ['Framework7','welcomescreen', 'utils/appFunc', 'GS', "service/iClient"], function(Framework7, ws, appFunc, GS, iClient) {
 
     var welcomescreen_slides = [
         {
@@ -77,23 +79,43 @@ define('app', ['Framework7','welcomescreen', 'utils/appFunc', 'GS'], function(Fr
             var ptrContent = $$('.pull-to-refresh-content');
 
             ptrContent.on('refresh', function (e) {
-                // Emulate 2s loading
-                setTimeout(function () {
-                    // List item html
-                    var itemHTML = '<div class="card ks-facebook-card">'+
-                        '<div class="card-header no-border">'+
-                        '<div class="ks-facebook-avatar"><img src="http://lorempixel.com/68/68/people/1/" width="34" height="34"/></div>'+
-                        '<div class="ks-facebook-name">John Doe</div>'+
-                        '<div class="ks-facebook-date">Monday at 3:47 PM</div>'+
-                        '</div>'+
-                        '<div class="card-content"> <img src="http://lorempixel.com/1000/700/nature/8/" width="100%"/></div>'+
-                        '<div class="card-footer no-border"><a href="#" class="link">Like</a><a href="#" class="link">Comment</a><a href="#" class="link">Share</a></div>'+
-                        '</div>';
-                    // Prepend new list element
-                    ptrContent.find('.i-media-container').prepend(itemHTML);
-                    // When loading done, we need to reset it
+                new iClient({accessToken:GS.getToken()}).call({url:"/users/self/feed"}).then(function(result){
+                    console.log("instacall", result);
+                }).fail(function(error){
+                    console.error(error)
+                }).always(function(){
                     iApp.pullToRefreshDone();
-                }, 1000);
+                });
+
+                // Emulate 2s loading
+                //setTimeout(function () {
+                //    // List item html
+                //    var itemHTML = '<div class="card ks-facebook-card">'+
+                //        '<div class="card-header no-border">'+
+                //        '<div class="ks-facebook-avatar"><img src="http://lorempixel.com/68/68/people/1/" width="34" height="34"/></div>'+
+                //        '<div class="ks-facebook-name">John Doe</div>'+
+                //        '<div class="ks-facebook-date">Monday at 3:47 PM</div>'+
+                //        '</div>'+
+                //        '<div class="card-content"> <img src="http://lorempixel.com/1000/700/nature/8/" width="100%"/></div>'+
+                //        '<div class="card-footer no-border"><a href="#" class="link">Like</a><a href="#" class="link">Comment</a><a href="#" class="link">Share</a></div>'+
+                //        '</div>';
+                //    // Prepend new list element
+                //    ptrContent.find('.i-media-container').prepend(itemHTML);
+                //    // When loading done, we need to reset it
+                //    iApp.pullToRefreshDone();
+                //}, 1000);
+
+                console.log(GS.getCurrentUser());
+                //var feed = new Instafeed({
+                //    target:"i-media-container-id",
+                //    get: 'popular',
+                //    userId:GS.getCurrentUser().id,
+                //    clientId: "aa0529f6b6ce446386d600ff045e14a1",
+                //    accessToken: GS.getToken(),
+                //    template: '<a class="animation" href="{{link}}"><img src="{{image}}" /></a>'
+                //});
+                //feed.run();
+                //iApp.pullToRefreshDone();
             });
         }
     };

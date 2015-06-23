@@ -17,6 +17,10 @@ var paths = {
     'requirsjs_text': assets + 'requirejs-text/',
     'requirsjs_i18n': assets + 'requirejs-i18n/',
     'lodash': assets + 'lodash/',
+    'zepto': assets + 'zepto/',
+    'jquery': assets + 'jquery/dist/',
+    'reqwest': assets + 'reqwest/',
+    'underscore': assets + 'underscore/',
     'oauth': assets + 'oauth-js/dist/',
     'ionic': assets + 'ionic/',
     'ionicons': assets + 'ionicons/',
@@ -60,6 +64,7 @@ gulp.task('js', function(done) {
         paths.requirsjs_i18n + "*.js",
         paths.lodash + "lodash.js",
         paths.oauth + "oauth.js",
+        paths.reqwest + "reqwest.js",
         paths.framework7js + "framework7.js"
     ];
     js = js.concat(js.map(function(item){ return item + ".map"}));
