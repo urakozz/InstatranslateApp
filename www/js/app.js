@@ -13,7 +13,7 @@ require.config({
             Framework7:{exports: 'Framework7'}
         }
 });
-define('app', ['Framework7','welcomescreen', 'utils/appFunc', 'GS', "service/IClient"], function(Framework7, ws, appFunc, GS, iClient) {
+define('app', ['Framework7','welcomescreen', 'utils/appFunc', 'GS', "service/TinyClient"], function(Framework7, ws, appFunc, GS, iClient) {
 
     var welcomescreen_slides = [
         {
