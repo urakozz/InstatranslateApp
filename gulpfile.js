@@ -20,6 +20,7 @@ var paths = {
     'lodash': assets + 'lodash/',
     'zepto': assets + 'zepto/',
     'jquery': assets + 'jquery/dist/',
+    'moment': assets + 'moment/min/',
     'reqwest': assets + 'reqwest/',
     'underscore': assets + 'underscore/',
     'oauth': assets + 'oauth-js/dist/',
@@ -66,6 +67,7 @@ gulp.task('js', function(done) {
         paths.lodash + "lodash.js",
         paths.oauth + "oauth.js",
         paths.reqwest + "reqwest.js",
+        paths.moment + "moment-with-locales.min.js",
         paths.framework7js + "framework7.js"
     ];
     js = js.concat(js.map(function(item){ return item + ".map"}));

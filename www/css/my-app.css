@@ -90,6 +90,18 @@ body.with-panel-left-reveal .statusbar-overlay {
 .i-translatable-item__translated {
     cursor: default;
 }
+.i-media-container{
+    margin: 0 auto;
+    max-width: 640px;
+}
+.i-card-time_option{
+    visibility: hidden;
+    display: none;
+}
+.i-card-time_option__active{
+    visibility: visible;
+    display: inherit;
+}
 /*.popup-overlay {*/
     /*background: rgba(128, 128, 128, 0.2);*/
 /*}*/

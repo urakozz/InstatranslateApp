@@ -78,33 +78,8 @@
                         <div class="preloader"></div>
                         <div class="pull-to-refresh-arrow"></div>
                     </div>
-                    <div class="i-media-container">
-
-
-                    <!--<div class="card ks-facebook-card">-->
-                        <!--<div class="card-header no-border">-->
-                            <!--<div class="ks-facebook-avatar"><img src="http://lorempixel.com/68/68/people/1/" width="34" height="34"/></div>-->
-                            <!--<div class="ks-facebook-name">John Doe</div>-->
-                            <!--<div class="ks-facebook-date">Monday at 3:47 PM</div>-->
-                        <!--</div>-->
-                        <!--<div class="card-content"> <img src="http://lorempixel.com/1000/700/nature/8/" width="100%"/></div>-->
-                        <!--<div class="card-footer no-border"><a href="#" class="link">Like</a><a href="#" class="link">Comment</a><a href="#" class="link">Share</a></div>-->
-                    <!--</div>-->
-                    <!--<div class="card ks-facebook-card">-->
-                        <!--<div class="card-header">-->
-                            <!--<div class="ks-facebook-avatar"><img src="http://lorempixel.com/68/68/people/1/" width="34" height="34"/></div>-->
-                            <!--<div class="ks-facebook-name">John Doe</div>-->
-                            <!--<div class="ks-facebook-date">Monday at 2:15 PM</div>-->
-                        <!--</div>-->
-                        <!--<div class="card-content">-->
-                            <!--<div class="card-content-inner">-->
-                                <!--<p>What a nice photo i took yesterday!</p><img src="http://lorempixel.com/1000/700/nature/8/" width="100%"/>-->
-                                <!--<p class="color-gray">Likes: 112 &nbsp;&nbsp; Comments: 43</p>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="card-footer"><a href="#" class="link">Like</a><a href="#" class="link">Comment</a><a href="#" class="link">Share</a></div>-->
-                    <!--</div>-->
-
+                    <div class="i-media-container" data-url="/users/self/feed">
+                        <!-- Content will appears here-->
                     </div>
                 </div>
             </div>
@@ -148,11 +123,14 @@
 </div>
 <script id="feedTemplate" type="text/template7">
     {{#each data}}
-    <div class="card ks-facebook-card">
+    <div class="card">
         <div class="card-header no-border">
-            <div class="ks-facebook-avatar"><img src="{{user.profile_picture}}" width="34" height="34"/></div>
-            <div class="ks-facebook-name">{{user.username}}</div>
-            <div class="ks-facebook-date">{{created_time}}</div>
+            <div class=""><img src="{{user.profile_picture}}" width="34" height="34"/></div>
+            <div class="">{{user.username}}</div>
+            <div class="i-card-time">
+                <div class="i-card-time_option i-card-time_option__active">{{js "moment(this.created_time, 'X').calendar()"}}</div>
+                <div class="i-card-time_option">{{js "moment(this.created_time, 'X').format('lll')"}}</div>
+            </div>
             </div>
         <div class="card-content">
             <div class="card-content-inner">
@@ -173,8 +151,16 @@
     </div>
     {{/each}}
 </script>
+<script id="welcomeButton" type="text/template7">
+    <i class="icon ion-social-instagram-outline big-icon"></i>
+    <div class="content-block">
+        <a href="#"class="login-popup-button open-popup button button-big" data-popup=".popup-login">
+        Log in to the Instagram
+        </a>
+    </div>
+</script>
 <script type="text/javascript" src="cordova.js"></script>
 <!-- Path to your app js-->
-<script data-main="js/app" src="js/assets/require.js"></script>
+<script data-main="js/main" src="js/assets/require.js"></script>
 </body>
 </html>

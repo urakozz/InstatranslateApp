@@ -23,6 +23,7 @@
     "requirejs-text": "~2.0.14",
     "requirejs-i18n": "~2.0.5",
     "oauth-js": "~0.4.3",
-    "reqwest": "~1.1.5"
+    "reqwest": "~1.1.5",
+    "moment": "~2.10.3"
   }
 }
