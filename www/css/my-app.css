@@ -12,7 +12,7 @@ body {
     opacity: 1;
     visibility:visible;
     transition: opacity .25s linear, visibility 0.25s linear;
-    transition-delay:.1s;
+    /*transition-delay:.1s;*/
 }
 .init-overlay-container__invisible {
     visibility:hidden;
@@ -101,6 +101,93 @@ body.with-panel-left-reveal .statusbar-overlay {
 .i-card-time_option__active{
     visibility: visible;
     display: inherit;
+}
+.i-card{
+    margin: 10px 0;
+}
+.i-card-header{
+    height: 64px;
+    padding: 14px 20px;
+    flex-direction: row;
+}
+.i-card-header a{
+    color:#74baee;
+}
+.i-card-header a, .i-card-header a:visited {
+    color: #125688;
+}
+.i-card-header_avatar{
+    -webkit-flex-basis: 30px;
+    -ms-flex-preferred-size: 30px;
+    flex-basis: 30px;
+    height: 30px;
+    margin: -1px 10px -1px -5px;
+    width: 30px;
+}
+.i-card-header_author{
+    display: block;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -webkit-flex-shrink: 1;
+    -ms-flex-negative: 1;
+    flex-shrink: 1;
+    overflow: hidden;
+    line-height: 0;
+}
+.i-card-header_author-link{
+    display: inline-block;
+    margin-right: 100%;
+    max-width: 100%;
+}
+@media (min-width: 736px){
+    .i-card-header_author-link__width_specific {
+        font-size: 16px;
+    }
+}
+
+.i-card-header_author-link__width_specific {
+    font-weight: 400;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 18px;
+    font-size: 14px;
+}
+.i-card-header_location {
+    display: inline-block;
+    max-width: 100%;
+}
+@media (min-width: 736px){
+    .i-card-header_location__width_specific {
+        font-size: 14px;
+    }
+}
+
+.i-card-header_location__width_specific {
+    color: #a5a7aa;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 18px;
+    font-size: 13px;
+}
+.i-card-time{
+    color: #a5a7aa;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    align-self: flex-start;
+}
+@media (min-width: 736px){
+    .i-card-time_option {
+        font-size: 14px;
+    }
+}
+
+.i-card-time_option {
+    font-size: 13px;
 }
 /*.popup-overlay {*/
     /*background: rgba(128, 128, 128, 0.2);*/

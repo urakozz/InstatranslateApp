@@ -123,18 +123,28 @@
 </div>
 <script id="feedTemplate" type="text/template7">
     {{#each data}}
-    <div class="card">
-        <div class="card-header no-border">
-            <div class=""><img src="{{user.profile_picture}}" width="34" height="34"/></div>
-            <div class="">{{user.username}}</div>
+    <div class="card i-card">
+        <header class="card-header no-border i-card-header">
+            <img class="i-card-header_avatar" src="{{user.profile_picture}}" width="34" height="34"/>
+
+            <div class="i-card-header_author">
+                <a class="i-card-header_author-link i-card-header_author-link__width_specific" href="user.html?user={{user.username}}">
+                    {{user.username}}
+                </a>
+                <span class="i-card-header_location i-card-header_location__width_specific">
+                    Location
+                </span>
+            </div>
             <div class="i-card-time">
-                <div class="i-card-time_option i-card-time_option__active">{{js "moment(this.created_time, 'X').calendar()"}}</div>
-                <div class="i-card-time_option">{{js "moment(this.created_time, 'X').format('lll')"}}</div>
+                <span class="i-card-time_option i-card-time_option__active">{{js "moment(this.created_time, 'X').calendar()"}}</span>
+                <time class="i-card-time_option" datetime="{{created_time}}">
+                    {{js "moment(this.created_time, 'X').format('lll')"}}
+                </time>
             </div>
-            </div>
-        <div class="card-content">
+        </header>
+        <div class="card-content i-card-content">
+            <img src="{{images.standard_resolution.url}}" width="100%"/>
             <div class="card-content-inner">
-                <img src="{{images.standard_resolution.url}}" width="100%"/>
                 <div class="i-translatable-container">
                     {{#if caption}}
                     <p class="i-translatable-item">{{caption.text}}</p>
@@ -143,7 +153,7 @@
             <p class="color-gray">Likes: {{likes.count}} &nbsp;&nbsp; Comments: {{comments.count}}</p>
             </div>
         </div>
-        <div class="card-footer no-border">
+        <div class="card-footer no-border i-card-footer">
             <a href="#" class="link">Like</a>
             <a href="#" class="link">Comment</a>
             <a href="#" class="link">Share</a>
