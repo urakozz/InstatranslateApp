@@ -51,9 +51,10 @@ define('app',
                 document.addEventListener('deviceready', func, false);
             }else{
                 require(["assets/oauth"]);
-                window.onload = (function(onload){
-                    return function(event){ onload && onload(event); func(); }
-                })(window.onload)
+                //window.onload = (function(onload){
+                //    return function(event){ onload && onload(event); func(); }
+                //})(window.onload)
+                window.addEventListener('load', func, false);
             }
         },
         initPullToRefresh: function(){
