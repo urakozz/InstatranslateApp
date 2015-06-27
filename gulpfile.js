@@ -10,11 +10,15 @@ var autoprefixer = require('gulp-autoprefixer');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var connect = require('gulp-connect');
-//var build = require('gulp-build');
+var gutil = require('gulp-util');
 var minifycss = require('gulp-minify-css');
-var size      = require('gulp-size');
+var rebaseUrls = require('gulp-css-rebase-urls');
+var size = require('gulp-size');
+var rev = require('gulp-rev');
+var RevAll = require('gulp-rev-all');
+var replace = require('gulp-replace');
 
-var assets= './bower_components/';
+var assets = './bower_components/';
 var paths = {
     'requirsjs': assets + 'requirejs/',
     'requirsjs_text': assets + 'requirejs-text/',
@@ -33,12 +37,12 @@ var paths = {
     'framework7js': assets + 'framework7/dist/js/',
     'fontAwesome': assets + 'font-awesome/'
 };
-var buildConfig ={
-    'dist':"./www"
+var buildConfig = {
+    'dist': "./www"
 };
 
-gulp.task('sass', function(done) {
-    gulp.src([paths.ionicons+'scss/ionicons.scss', paths.fontAwesome+'scss/font-awesome.scss'])
+gulp.task('sass', function (done) {
+    gulp.src([paths.ionicons + 'scss/ionicons.scss', paths.fontAwesome + 'scss/font-awesome.scss'])
         .pipe(sass({errLogToConsole: true}))
         //.pipe(sourcemaps.init())
         .pipe(concat('fonts.css'))
@@ -47,7 +51,7 @@ gulp.task('sass', function(done) {
         .on('end', done);
 
 });
-gulp.task('less', function(done) {
+gulp.task('less', function (done) {
     gulp.src([paths.framework7 + "framework7.less"])
         .pipe(less({errLogToConsole: true}))
         .pipe(autoprefixer())
@@ -56,13 +60,13 @@ gulp.task('less', function(done) {
 
 });
 
-gulp.task('fonts', function(done) {
-    gulp.src([paths.fontAwesome+'fonts/*', paths.ionicons+'fonts/*'])
-        .pipe(gulp.dest(buildConfig.dist+'/build/fonts'))
+gulp.task('fonts', function (done) {
+    gulp.src([paths.fontAwesome + 'fonts/*', paths.ionicons + 'fonts/*'])
+        .pipe(gulp.dest(buildConfig.dist + '/build/fonts'))
         .on('end', done);
 });
 
-gulp.task('js', function(done) {
+gulp.task('js', function (done) {
     var js = [
         paths.requirsjs + "*.js",
         paths.requirsjs_text + "*.js",
@@ -74,21 +78,53 @@ gulp.task('js', function(done) {
         paths.moment + "moment-with-locales.min.js",
         paths.framework7js + "framework7.js"
     ];
-    js = js.concat(js.map(function(item){ return item + ".map"}));
+    js = js.concat(js.map(function (item) {
+        return item + ".map"
+    }));
     gulp.src(js)
-        .pipe(gulp.dest(buildConfig.dist+'/build/js'))
+        .pipe(gulp.dest(buildConfig.dist + '/build/js'))
         .on('end', done);
 
 });
 
 
-gulp.task('optimize:css', function(done){
-    gulp.src(["www/css/*.css", "www/build/css/*.css"])
+gulp.task('build:css', ['sass', 'less', 'fonts'], function (done) {
+    gulp.src(["www/build/css/*.css", "www/css/*.css"])
         .pipe(autoprefixer())
-        //.pipe(minifycss({keepSpecialComments: 0}))
+        .pipe(sourcemaps.init())
+        //.pipe(rebaseUrls())
         .pipe(concat('_app.css'))
-        .pipe(gulp.dest("www/build/"))
-        .pipe(size())
+        .pipe(replace(/\.\.\/fonts/g, './fonts'))
+        .pipe(gutil.env.type === 'production' ? minifycss({keepSpecialComments: 0}) : gutil.noop())
+        .pipe(sourcemaps.write('.',{includeContent: false}))
+        .pipe(gulp.dest("www/build"))
+        //.pipe(rev())
+        ////.pipe(gulp.dest("www/build"))
+        //.pipe(rev.manifest({
+        //    //base: '/www/build',
+        //    //cwd: '../',
+        //    merge: true
+        //}))
+        //.pipe(gulp.dest("www/build"))
+        .on('end', done);
+});
+gulp.task('build:js', ['js'], function (done) {
+    //var revAll = new RevAll();
+    //return gulp.src(['assets/**'])
+    //    .pipe(gulp.dest('build/assets'))
+    //    .pipe(revAll.revision())
+    //    .pipe(gulp.dest('build/assets'))
+    //    .pipe(revAll.versionFile())
+    //    .pipe(gulp.dest('build/assets'));
+});
+
+gulp.task('build',['build:css','js'], function (done) {
+    //var obj = JSON.parse(require('fs').readFileSync('www/build/', 'utf8'));
+    var link = '<link rel="stylesheet" href="build/_app.css">';
+    gulp.src("www/index.html")
+        //.replace(/\<\!\-\-\{CSS\}\-\-\>(.*)\<\!\-\-\{CSS\}\-\-\>/g, link)
+        .pipe(replace(/\<\!\-\-\{CSS\}\-\-\>([\s\S]*)\<\!\-\-\{CSS\}\-\-\>/g, link))
+        .pipe(gulp.dest("www"))
         .on('end', done);
 });
 
@@ -96,15 +132,14 @@ gulp.task('default', ['sass', 'less', 'fonts', 'js']);
 
 gulp.task('server', function () {
     return connect.server({
-        root: [ "./www" ],
-        livereload: true,
-        port:'3000'
+        root: ["./www"],
+        port: '3000'
     });
 });
 
-gulp.task('ios', function(){
+gulp.task('ios', function () {
     exec("./node_modules/.bin/phonegap run ios")
 });
-gulp.task('android', function(){
+gulp.task('android', function () {
     exec("./node_modules/.bin/phonegap run android")
 });

@@ -64,7 +64,6 @@ define('app',
                 require(["OAuth"]);
                 require(['domReady'], function (domReady) {
                     domReady(function () {
-                        window.dbg.debug("domready");
                         func();
                     });
                 });
@@ -131,7 +130,6 @@ define('app',
 
         },
         onDeviceReadyHandler: function(){
-            console.log("odh");
 
             $$(".init-overlay-container").addClass("init-overlay-container__invisible");
 
