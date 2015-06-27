@@ -10,13 +10,16 @@ var autoprefixer = require('gulp-autoprefixer');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var connect = require('gulp-connect');
-var build = require('gulp-build');
+//var build = require('gulp-build');
+var minifycss = require('gulp-minify-css');
+var size      = require('gulp-size');
 
 var assets= './bower_components/';
 var paths = {
     'requirsjs': assets + 'requirejs/',
     'requirsjs_text': assets + 'requirejs-text/',
     'requirsjs_i18n': assets + 'requirejs-i18n/',
+    'requirsjs_domready': assets + 'requirejs-domready/',
     'lodash': assets + 'lodash/',
     'zepto': assets + 'zepto/',
     'jquery': assets + 'jquery/dist/',
@@ -40,22 +43,22 @@ gulp.task('sass', function(done) {
         //.pipe(sourcemaps.init())
         .pipe(concat('fonts.css'))
         //.pipe(sourcemaps.write())
-        .pipe(gulp.dest(buildConfig.dist + '/css'))
+        .pipe(gulp.dest(buildConfig.dist + '/build/css'))
         .on('end', done);
 
 });
 gulp.task('less', function(done) {
-    gulp.src([paths.framework7 + "material/framework7.material.less", paths.framework7 + "ios/framework7.less"])
+    gulp.src([paths.framework7 + "framework7.less"])
         .pipe(less({errLogToConsole: true}))
-        .pipe(autoprefixer('last 4 version'))
-        .pipe(gulp.dest(buildConfig.dist + '/css'))
+        .pipe(autoprefixer())
+        .pipe(gulp.dest(buildConfig.dist + '/build/css'))
         .on('end', done);
 
 });
 
 gulp.task('fonts', function(done) {
     gulp.src([paths.fontAwesome+'fonts/*', paths.ionicons+'fonts/*'])
-        .pipe(gulp.dest(buildConfig.dist+'/fonts'))
+        .pipe(gulp.dest(buildConfig.dist+'/build/fonts'))
         .on('end', done);
 });
 
@@ -64,6 +67,7 @@ gulp.task('js', function(done) {
         paths.requirsjs + "*.js",
         paths.requirsjs_text + "*.js",
         paths.requirsjs_i18n + "*.js",
+        paths.requirsjs_domready + "*.js",
         paths.lodash + "lodash.js",
         paths.oauth + "oauth.js",
         paths.reqwest + "reqwest.js",
@@ -72,15 +76,19 @@ gulp.task('js', function(done) {
     ];
     js = js.concat(js.map(function(item){ return item + ".map"}));
     gulp.src(js)
-        .pipe(gulp.dest(buildConfig.dist+'/js/assets'))
+        .pipe(gulp.dest(buildConfig.dist+'/build/js'))
         .on('end', done);
 
 });
 
-gulp.task('html', function(done){
-    gulp.src("www/index.html")
-        .pipe(build({ "git_hash": '123456' }))
-        .pipe(gulp.dest('www'))
+
+gulp.task('optimize:css', function(done){
+    gulp.src(["www/css/*.css", "www/build/css/*.css"])
+        .pipe(autoprefixer())
+        //.pipe(minifycss({keepSpecialComments: 0}))
+        .pipe(concat('_app.css'))
+        .pipe(gulp.dest("www/build/"))
+        .pipe(size())
         .on('end', done);
 });
 

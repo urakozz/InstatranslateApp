@@ -27,6 +27,17 @@ define('app',
             });
             moment.locale('en');
             window.moment = moment;
+
+        },
+        initDebugger: function(){
+
+            var debug = function(){
+                this.container = $$(".init-overlay-container");
+            };
+            debug.prototype.debug = function(message){
+                this.container.append("<p>"+message+"</p>");
+            };
+            window.dbg = new debug();
         },
         initWelcomeScreen: function(slideId){
             var options = {
@@ -50,11 +61,13 @@ define('app',
             if(appFunc.isPhonegap()) {
                 document.addEventListener('deviceready', func, false);
             }else{
-                require(["assets/oauth"]);
-                //window.onload = (function(onload){
-                //    return function(event){ onload && onload(event); func(); }
-                //})(window.onload)
-                window.addEventListener('load', func, false);
+                require(["OAuth"]);
+                require(['domReady'], function (domReady) {
+                    domReady(function () {
+                        window.dbg.debug("domready");
+                        func();
+                    });
+                });
             }
         },
         initPullToRefresh: function(){
@@ -118,6 +131,7 @@ define('app',
 
         },
         onDeviceReadyHandler: function(){
+            console.log("odh");
 
             $$(".init-overlay-container").addClass("init-overlay-container__invisible");
 
