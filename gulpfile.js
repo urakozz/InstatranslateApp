@@ -126,6 +126,7 @@ gulp.task('build',['build:css','js'], function (done) {
         .pipe(replace(/\<\!\-\-\{CSS\}\-\-\>([\s\S]*)\<\!\-\-\{CSS\}\-\-\>/g, link))
         .pipe(gulp.dest("www"))
         .on('end', done);
+
 });
 
 gulp.task('default', ['sass', 'less', 'fonts', 'js']);
