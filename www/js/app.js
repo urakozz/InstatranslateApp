@@ -50,8 +50,10 @@ define('app',
             if(appFunc.isPhonegap()) {
                 document.addEventListener('deviceready', func, false);
             }else{
-                window.onload = func;
                 require(["assets/oauth"]);
+                window.onload = (function(onload){
+                    return function(event){ onload && onload(event); func(); }
+                })(window.onload)
             }
         },
         initPullToRefresh: function(){
