@@ -85,17 +85,6 @@ body {
 body.with-panel-left-reveal .statusbar-overlay {
     background: #7a9dbb;
 }
-.pull-to-refresh-content .pull-to-refresh-layer{
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .25s linear, visibility 0.25s linear;
-}
-.pull-to-refresh-content.pull-down .pull-to-refresh-layer,
-.pull-to-refresh-content.pull-up .pull-to-refresh-layer
-{
-    opacity: 1;
-    visibility: visible;
-}
 .i-translatable-container{
     cursor: default;
 }
