@@ -1,0 +1,130 @@
+@import "vendor/framework7/framework7";
+@import "vendor/ioniconic/ionicons";
+@import "welcomescreen";
+
+$it-color: #74baee;
+$it-color-dark: #7a9dbb;
+
+@import "restyling";
+
+
+.init-overlay-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: $it-color;
+  z-index: 10401;
+  opacity: 1;
+  visibility:visible;
+  transition: opacity .25s linear, visibility 0.25s linear;
+  /*transition-delay:.1s;*/
+  &__invisible{
+    visibility:hidden;
+    opacity:0;
+  }
+}
+
+.i-translatable-container{
+  cursor: default;
+}
+.i-translatable-item {
+  cursor: pointer;
+  &__translated{
+    cursor: default;
+  }
+}
+
+.i-media-container{
+  margin: 0 auto;
+  max-width: 640px;
+}
+.i-card-time_option{
+  visibility: hidden;
+  display: none;
+  &__active{
+    visibility: visible;
+    display: inherit;
+  }
+}
+
+.i-card{
+  margin: 10px 0;
+}
+.i-card-header{
+  height: 64px;
+  padding: 14px 20px;
+  flex-direction: row;
+}
+.i-card-header a{
+  color:#74baee;
+}
+.i-card-header a, .i-card-header a:visited {
+  color: #125688;
+}
+.i-card-header_avatar{
+  flex-basis: 30px;
+  height: 30px;
+  margin: -1px 10px -1px -5px;
+  width: 30px;
+}
+.i-card-header_author{
+  display: block;
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  line-height: 0;
+}
+.i-card-header_author-link{
+  display: inline-block;
+  margin-right: 100%;
+  max-width: 100%;
+}
+@media (min-width: 736px){
+  .i-card-header_author-link__width_specific {
+    font-size: 16px;
+  }
+}
+
+.i-card-header_author-link__width_specific {
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 18px;
+  font-size: 14px;
+}
+.i-card-header_location {
+  display: inline-block;
+  max-width: 100%;
+}
+@media (min-width: 736px){
+  .i-card-header_location__width_specific {
+    font-size: 14px;
+  }
+}
+
+.i-card-header_location__width_specific {
+  color: #a5a7aa;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 18px;
+  font-size: 13px;
+}
+.i-card-time{
+  color: #a5a7aa;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+@media (min-width: 736px){
+  .i-card-time_option {
+    font-size: 14px;
+  }
+}
+
+.i-card-time_option {
+  font-size: 13px;
+}
+

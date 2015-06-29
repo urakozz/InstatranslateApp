@@ -6,17 +6,18 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var less = require('gulp-less');
 var concat = require('gulp-concat');
+var rename = require('gulp-rename');
 var autoprefixer = require('gulp-autoprefixer');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var connect = require('gulp-connect');
 var gutil = require('gulp-util');
 var minifycss = require('gulp-minify-css');
-var rebaseUrls = require('gulp-css-rebase-urls');
 var size = require('gulp-size');
 var rev = require('gulp-rev');
 var RevAll = require('gulp-rev-all');
 var replace = require('gulp-replace');
+var lessToScss = require('gulp-less-to-scss');
 
 var assets = './bower_components/';
 var paths = {
@@ -33,36 +34,41 @@ var paths = {
     'oauth': assets + 'oauth-js/dist/',
     'ionic': assets + 'ionic/',
     'ionicons': assets + 'ionicons/',
-    'framework7': assets + 'framework7/src/less/',
+    'framework7': assets + 'framework7/',
     'framework7js': assets + 'framework7/dist/js/',
     'fontAwesome': assets + 'font-awesome/'
 };
-var buildConfig = {
-    'dist': "./www"
+var target = {
+    styles: "./www/styles/vendor",
+    fonts: "./www/fonts",
+    js: "./www/js/vendor",
+    build: "./www/build"
 };
 
-gulp.task('sass', function (done) {
-    gulp.src([paths.ionicons + 'scss/ionicons.scss', paths.fontAwesome + 'scss/font-awesome.scss'])
-        .pipe(sass({errLogToConsole: true}))
-        //.pipe(sourcemaps.init())
-        .pipe(concat('fonts.css'))
-        //.pipe(sourcemaps.write())
-        .pipe(gulp.dest(buildConfig.dist + '/build/css'))
-        .on('end', done);
-
-});
-gulp.task('less', function (done) {
-    gulp.src([paths.framework7 + "framework7.less"])
-        .pipe(less({errLogToConsole: true}))
-        .pipe(autoprefixer())
-        .pipe(gulp.dest(buildConfig.dist + '/build/css'))
-        .on('end', done);
-
-});
-
-gulp.task('fonts', function (done) {
+gulp.task('fonts:copy', function (done) {
     gulp.src([paths.fontAwesome + 'fonts/*', paths.ionicons + 'fonts/*'])
-        .pipe(gulp.dest(buildConfig.dist + '/build/fonts'))
+        .pipe(gulp.dest(target.fonts + '/build/fonts'))
+        .on('end', done);
+});
+
+gulp.task('styles:copy', function (done) {
+    gulp.src([paths.framework7 + "dist/css/framework7.css"])
+        .pipe(rename("framework7.scss"))
+        .pipe(gulp.dest(target.styles+"/framework7"));
+    gulp.src([paths.ionicons + "/scss/*.scss"])
+        .pipe(gulp.dest(target.styles+"/ioniconic"));
+    gulp.src([paths.fontAwesome + "/scss/*.scss"])
+        .pipe(gulp.dest(target.styles+"/fontAwesome"))
+        .on('end', done);
+});
+
+gulp.task('styles:build', ["styles:copy", "fonts:copy"], function (done) {
+    gulp.src('./www/styles/app.scss')
+        .pipe(sourcemaps.init())
+        .pipe(sass())
+        .pipe(gutil.env.type === 'production' ? minifycss({keepSpecialComments: 0}) : gutil.noop())
+        .pipe(sourcemaps.write(".", {includeContent: false}))
+        .pipe(gulp.dest(target.build))
         .on('end', done);
 });
 
@@ -82,32 +88,11 @@ gulp.task('js', function (done) {
         return item + ".map"
     }));
     gulp.src(js)
-        .pipe(gulp.dest(buildConfig.dist + '/build/js'))
+        .pipe(gulp.dest(target.js))
         .on('end', done);
 
 });
 
-
-gulp.task('build:css', ['sass', 'less', 'fonts'], function (done) {
-    gulp.src(["www/build/css/*.css", "www/css/*.css"])
-        .pipe(autoprefixer())
-        .pipe(sourcemaps.init())
-        //.pipe(rebaseUrls())
-        .pipe(concat('_app.css'))
-        .pipe(replace(/\.\.\/fonts/g, './fonts'))
-        .pipe(gutil.env.type === 'production' ? minifycss({keepSpecialComments: 0}) : gutil.noop())
-        .pipe(sourcemaps.write('.',{includeContent: false}))
-        .pipe(gulp.dest("www/build"))
-        //.pipe(rev())
-        ////.pipe(gulp.dest("www/build"))
-        //.pipe(rev.manifest({
-        //    //base: '/www/build',
-        //    //cwd: '../',
-        //    merge: true
-        //}))
-        //.pipe(gulp.dest("www/build"))
-        .on('end', done);
-});
 gulp.task('build:js', ['js'], function (done) {
     //var revAll = new RevAll();
     //return gulp.src(['assets/**'])
@@ -118,18 +103,18 @@ gulp.task('build:js', ['js'], function (done) {
     //    .pipe(gulp.dest('build/assets'));
 });
 
-gulp.task('build',['build:css','js'], function (done) {
+gulp.task('build',['styles:build','js'], function (done) {
     //var obj = JSON.parse(require('fs').readFileSync('www/build/', 'utf8'));
-    var link = '<link rel="stylesheet" href="build/_app.css">';
-    gulp.src("www/index.html")
-        //.replace(/\<\!\-\-\{CSS\}\-\-\>(.*)\<\!\-\-\{CSS\}\-\-\>/g, link)
-        .pipe(replace(/\<\!\-\-\{CSS\}\-\-\>([\s\S]*)\<\!\-\-\{CSS\}\-\-\>/g, link))
-        .pipe(gulp.dest("www"))
-        .on('end', done);
+    //var link = '<link rel="stylesheet" href="/build/_app.css">';
+    //gulp.src("www/index.html")
+    //    //.replace(/\<\!\-\-\{CSS\}\-\-\>(.*)\<\!\-\-\{CSS\}\-\-\>/g, link)
+    //    .pipe(replace(/(\<\!\-\-\{CSS\}\-\-\>)([\s\S]*)(\<\!\-\-\{CSS\}\-\-\>)/g, "$1"+link+"$3"))
+    //    .pipe(gulp.dest("www"))
+    //    .on('end', done);
 
 });
 
-gulp.task('default', ['sass', 'less', 'fonts', 'js']);
+gulp.task('default', ['build']);
 
 gulp.task('server', function () {
     return connect.server({

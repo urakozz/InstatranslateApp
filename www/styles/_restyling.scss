@@ -1,0 +1,38 @@
+body {
+  background: #ffffff;
+}
+.page {
+  background: #fff;
+}
+.navbar {
+  border-bottom: none;
+  background: $it-color;
+  /*background: rgba(116, 186, 238, .97);*/
+  color: #ffffff;
+}
+.statusbar-overlay{
+  background: $it-color;
+}
+.navbar a.link {
+  color: #ffffff;
+}
+.panel {
+  background: $it-color-dark;
+}
+.panel .list-block .item-content {
+  background: $it-color-dark;
+}
+.panel .list-block .item-title {
+  color: #fafafa;
+}
+.panel .list-block i {
+  color: #fafafa;
+  font-size: 25px;
+  font-weight: 100;
+}
+.panel .list-block .item-link .item-inner{
+  background-image: none;
+}
+body.with-panel-left-reveal .statusbar-overlay {
+  background: $it-color-dark;
+}
