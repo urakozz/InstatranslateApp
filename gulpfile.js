@@ -17,7 +17,6 @@ var size = require('gulp-size');
 var rev = require('gulp-rev');
 var RevAll = require('gulp-rev-all');
 var replace = require('gulp-replace');
-var lessToScss = require('gulp-less-to-scss');
 
 var assets = './bower_components/';
 var paths = {
