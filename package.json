@@ -9,8 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cordova": "^5.1.1",
-    "phonegap": "~5.0.0-0.28.1"
+    "cordova": "~5.3.1",
+    "phonegap": "latest"
   },
   "devDependencies": {
     "bower-update": "^0.1.0",

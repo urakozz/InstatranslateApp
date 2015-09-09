@@ -16,7 +16,7 @@
   "dependencies": {
     "ionicons": "~2.0.1",
     "font-awesome": "~4.3.0",
-    "framework7": "~1.0.7",
+    "framework7": "~1.2",
     "requirejs": "~2.1.18",
     "lodash": "~3.9.3",
     "requirejs-text": "~2.0.14",
