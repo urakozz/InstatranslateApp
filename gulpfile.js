@@ -51,7 +51,7 @@ gulp.task('fonts:copy', function (done) {
 });
 
 gulp.task('styles:copy', function (done) {
-    gulp.src([paths.framework7 + "dist/css/framework7.material.css"])
+    gulp.src([paths.framework7 + "dist/css/framework7.ios.css"])
         .pipe(rename("framework7.scss"))
         .pipe(gulp.dest(target.styles+"/framework7"));
     gulp.src([paths.ionicons + "/scss/*.scss"])
